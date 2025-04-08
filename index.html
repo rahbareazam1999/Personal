@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy Birthday!</title>
+    <!-- Import a charming Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-gradient-start: #ffd5db;
+        --bg-gradient-end: #fce1f6;
+        --card-bg: #fff;
+        --primary-text: #a45f76;
+        --heading-text: #c7568b;
+        --accent: #f8a6c2;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Floating icons (hearts, stars, etc.) */
+      .floating-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .icon {
+        position: absolute;
+        font-size: 1.5rem;
+        opacity: 0.9;
+        animation: floatUp 10s linear infinite;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-120vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      /* Card container styling */
+      .card {
+        position: relative;
+        z-index: 2;
+        background: var(--card-bg);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        padding: 2rem;
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+      }
+      .card h1 {
+        font-size: 3rem;
+        color: var(--heading-text);
+        margin-bottom: 0.5rem;
+        animation: popIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes popIn {
+        0% { transform: scale(0.8); opacity: 0; }
+        80% { transform: scale(1.05); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .card h2 {
+        font-size: 1.2rem;
+        color: var(--primary-text);
+        margin-bottom: 1.5rem;
+        animation: fadeIn 2s ease forwards;
+        opacity: 0;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      /* Timer section styling */
+      .timer-section {
+        margin-bottom: 1.5rem;
+      }
+      .timer-section .label {
+        font-size: 1rem;
+        color: var(--heading-text);
+        margin-bottom: 0.3rem;
+      }
+      .timer-section .timer {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--accent);
+        padding: 0.5rem 1rem;
+        background: #fff5f7;
+        border-radius: 10px;
+        display: inline-block;
+        animation: pulseTimer 2s infinite;
+      }
+      @keyframes pulseTimer {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+      /* Personalized message styling */
+      .message {
+        font-size: 1rem;
+        color: var(--primary-text);
+        text-align: left;
+        margin-top: 1.5rem;
+      }
+      .message p {
+        margin-bottom: 0.8rem;
+      }
+      @media (max-width: 480px) {
+        .card {
+          padding: 1.5rem 1rem;
+        }
+        .card h1 {
+          font-size: 2.5rem;
+        }
+        .timer-section .timer {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating icons container -->
+    <div class="floating-icons" id="floating-icons"></div>
+
+    <!-- Main card container -->
+    <div class="card">
+      <h1>Happy Birthday! Nabs</h1>
+      <h2>Wishing you a day as lovely as you.</h2>
+
+      <!-- Timer display -->
+      <div class="timer-section">
+        <div class="label">The world just got luckier since:</div>
+        <div class="timer" id="timer">00 days 00 hours 00 minutes 00 seconds</div>
+      </div>
+
+      <!-- Personalized message -->
+      <div class="message">
+        <p>Dear Nabs,</p>
+        <p>
+          Your presence fills every moment with beauty and joy. I’m honored to celebrate your birthday and cherish every smile you bring.
+        </p>
+        <p>
+          Have the most amazing day ever!
+        </p>
+        <p style="text-align: right;"><em>With all my affection, Rahbar</em></p>
+      </div>
+    </div>
+
+    <script>
+      // ===== Timer Script =====
+      // Replace with the actual birth date and time (YYYY-MM-DDTHH:MM:SS)
+      const birthDate = new Date("2000-04-17T00:00:00");
+      function updateTimer() {
+        const now = new Date();
+        let diff = now - birthDate;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff %= (1000 * 60 * 60 * 24);
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff %= (1000 * 60 * 60);
+        const minutes = Math.floor(diff / (1000 * 60));
+        diff %= (1000 * 60);
+        const seconds = Math.floor(diff / 1000);
+
+        document.getElementById("timer").textContent =
+          days + " days " +
+          hours + " hours " +
+          minutes + " minutes " +
+          seconds + " seconds";
+      }
+      updateTimer();
+      setInterval(updateTimer, 1000);
+
+      // ===== Floating Icons Script =====
+      const floatingIconsContainer = document.getElementById("floating-icons");
+      const icons = ["❤️", "✨", "⭐", "💖"];
+      const iconCount = 20;
+      for (let i = 0; i < iconCount; i++) {
+        const iconEl = document.createElement("div");
+        iconEl.className = "icon";
+        iconEl.textContent = icons[Math.floor(Math.random() * icons.length)];
+        iconEl.style.left = Math.random() * 100 + "vw";
+        iconEl.style.top = (Math.random() * 100 + 100) + "vh"; // starting lower for a natural float-up
+        iconEl.style.animationDelay = Math.random() * 5 + "s";
+        iconEl.style.animationDuration = 8 + Math.random() * 4 + "s";
+        floatingIconsContainer.appendChild(iconEl);
+      }
+    </script>
+  </body>
+</html>
